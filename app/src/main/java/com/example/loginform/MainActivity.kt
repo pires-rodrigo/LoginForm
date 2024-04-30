@@ -37,6 +37,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.loginform.ui.theme.LoginFormTheme
 
 class MainActivity : ComponentActivity() {
@@ -49,7 +51,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Forms(this)
+                    Navigation()
                 }
             }
         }
@@ -57,7 +59,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Forms(context: Context) {
+fun Forms(context: Context, navController: NavController) {
     var usuario = remember {
         mutableStateOf(value = "")
     }
@@ -70,13 +72,13 @@ fun Forms(context: Context) {
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.padding(32.dp)
+        modifier = Modifier.padding(24.dp)
     ) {
         Image(
             painter = painterResource(id = R.drawable.azedou),
             contentDescription = "Azedou",
             modifier = Modifier
-                .size(360.dp)
+                .size(300.dp)
                 .fillMaxWidth()
         )
         Text(
@@ -84,7 +86,7 @@ fun Forms(context: Context) {
             textAlign = TextAlign.Center,
             fontSize = 24.sp,
             modifier = Modifier
-                .padding(bottom = 8.dp)
+                .padding(bottom = 4.dp)
         )
         OutlinedTextField(
             value = usuario.value,
@@ -144,10 +146,8 @@ fun Forms(context: Context) {
         Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
             Button(
                 onClick = {
-                    if (usuario.value == "admin" && senha.value == "admin123") {
-                        val intent = Intent(context, HomePage::class.java)
-                        intent.putExtra("username", usuario.value)
-                        context.startActivity(intent)
+                    if (usuario.value == "admin" && senha.value == "admin") {
+                        navController.navigate("HomePage")
                     } else {
                         context.toast("Usuário ou senha incorreto")
                     }
@@ -164,14 +164,20 @@ fun Forms(context: Context) {
             }
         }
 
-        Text(
-            text = "Novo usuário | Esqueci minha senha",
-            textAlign = TextAlign.Center,
-            fontSize = 16.sp,
-            modifier = Modifier
-                .background(Color.White)
+        Button(
+            onClick = {
+                navController.navigate("register")
+            }, colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.secondary, contentColor = Color.White
+            ), modifier = Modifier
                 .fillMaxWidth()
-        )
+                .padding(top = 20.dp)
+        ) {
+            Text(
+                text = "Cadastrar Conta",
+                fontSize = 18.sp
+            )
+        }
     }
 }
 
