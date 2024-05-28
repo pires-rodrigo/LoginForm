@@ -146,8 +146,8 @@ fun Forms(context: Context, navController: NavController) {
         Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
             Button(
                 onClick = {
-                    if (usuario.value == "admin" && senha.value == "admin") {
-                        navController.navigate("HomePage")
+                    if (usuario.value == "admin" && senha.value == "admin123") {
+                        navController.navigate("menu")
                     } else {
                         context.toast("Usuário ou senha incorreto")
                     }

@@ -10,8 +10,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 @Composable
-fun HomePage(navController: NavController) {
+fun AboutPage(navController: NavController) {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text("Bem vindo!", fontSize = 24.sp)
+        Text("Sobre: ", fontSize = 24.sp)
     }
 }
